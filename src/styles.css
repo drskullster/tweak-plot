@@ -1,0 +1,14 @@
+body {
+    align-items: center;
+    background-color: #ccc;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.p5Canvas {
+    background-color: white;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    outline: solid white 30px;
+}

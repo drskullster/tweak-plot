@@ -1,4 +1,7 @@
-uploads/*
 .idea
+.DS_Store
+
 node_modules
+
+uploads/*
 number.txt

@@ -69,6 +69,7 @@ const saveFile = async () => {
         printNumber = result.printNumber;
 
         clear();
+        reset();
         seed();
         loop();
 

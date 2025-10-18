@@ -37,7 +37,7 @@ function onMIDISuccess(midiAccess) {
     console.log('MIDI ready!');
 
     for (const entry of midiAccess.inputs) {
-        const input = entry[1];
+        const input = entry[1]
         if (input.name.includes('ParksTool')) {
             input.onmidimessage = throttle(onMIDIMessage, 5);
             return;

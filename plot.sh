@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir -p uploads/tmp
-mkdir -p uploads/out
+mkdir -p uploads/out 
 
 if [ ! -f uploads/$1.svg ]; then
     echo "$1.svg not found!"

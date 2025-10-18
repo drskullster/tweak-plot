@@ -112,7 +112,7 @@ app.listen(PORT, async () => {
     await ensureUploadsDirExists();
     await ensureNumberFileExists();
     await getPrintNumber();
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://0.0.0.0:${PORT}`);
     console.log('Send a POST request to /save-svg to save your SVG.');
     console.log(`Starting print number at ${printNumber}`);
 });

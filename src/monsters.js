@@ -3,8 +3,8 @@ let openSimplex = openSimplexNoise(Date.now());
 params = {
     radius: 50,
     res: 200,
-    xScl: 0,
-    yScl: 0,
+    xScl: 0.02,
+    yScl: 0.02,
     zScl: 0.1,
     radiusStep: 5,
     totalCircles: 25,
@@ -12,14 +12,16 @@ params = {
 }
 
 paramsFormat = {
-    xScl: { min: 0, max: 0.4 },
-    yScl: { min: 0, max: 0.4 },
+    xScl: { min: 0.02, max: 0.3 },
+    yScl: { min: 0.02, max: 0.3 },
     zScl: { min: 0, max: 2 },
     angleStep: { min: 0, max: Math.PI / 50 },
 }
 
+let buttonIsPressed = -1;
+
 function handleMidiMessage({ command, channel, note, velocity }) {
-    if (command === 11) {
+    if (command === 11 || command === 176) {
         switch (note) {
             case 1:
                 params.xScl = map(velocity, 0, 1, paramsFormat.xScl.min, paramsFormat.xScl.max);
@@ -44,10 +46,28 @@ function handleMidiMessage({ command, channel, note, velocity }) {
         }
     }
 
-    if (command === 9 && note === 53 && velocity === 1) {
-        seed();
-        clear();
-        loop();
+    // we start monitoring the click on any of the two buttons (velocity = 1)
+    // when button is released (velocity = 0) we check if it was a short press or a long press
+    // short press means reseed, long press means save
+    if (command === 9 && (note === 52 || note === 53)) {
+        if (velocity === 1) {
+            buttonIsPressed = Date.now();
+        } else {
+            if (buttonIsPressed < Date.now() - 500) {
+                // long press
+                saveFile(() => {
+                    clear();
+                    reset();
+                    seed();
+                    loop();
+                });
+            } else {
+                // short press
+                seed();
+                clear();
+                loop();
+            }
+        }
     }
 }
 

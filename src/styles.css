@@ -12,3 +12,18 @@ body {
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
     outline: solid white 30px;
 }
+
+#status {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 72px;
+    display: flex;
+}

@@ -7,6 +7,8 @@ const setupPane = () => {
             pane.addBinding(params, p, opts);
         })
     }
+    
+    pane.hidden = true;
 
     const f = pane.addFolder({
         title: 'Actions',
@@ -38,7 +40,7 @@ const setupPane = () => {
     });
 }
 
-const saveFile = async () => {
+const saveFile = async (func) => {
     const svgContent = document.querySelector('.p5Canvas').innerHTML;
 
     try {
@@ -68,11 +70,9 @@ const saveFile = async () => {
         
         printNumber = result.printNumber;
 
-        clear();
-        reset();
-        seed();
-        loop();
-
+        if (func) func();
+        
+        addStatus(printNumber - 1);
         // statusMessage.textContent = `Success! Saved as ${result.filename}`;
         // statusMessage.className = 'mt-6 text-sm font-medium text-green-600';
 
@@ -82,6 +82,16 @@ const saveFile = async () => {
         // statusMessage.textContent = `Error: ${error.message}`;
         // statusMessage.className = 'mt-6 text-sm font-medium text-red-600';
     }
+}
+
+function addStatus(msg) {
+    const div = document.createElement('div');
+    div.setAttribute('id', 'status');
+    div.innerHTML = msg;
+    document.body.appendChild(div);
+    setTimeout(() => {
+        document.body.removeChild(div);
+    }, 2000);
 }
 
 
